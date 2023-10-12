@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Price Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            color: blue;
+            font-weight: bold;
+        }
+
+        .calculator-box {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #0074e4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0055b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Price Calculator</h1>
+
+    <div class="calculator-box">
+        <label for="priceInRMB">Price in RMB:</label>
+        <input type="number" id="priceInRMB"  step="0.01">
+        
+        <label for="serviceCharge">Service Charge (in %):</label>
+        <input type="number" id="serviceCharge"  step="0.01">
+        
+        <label for="weightInKG">Weight in KG:</label>
+        <input type="number" id="weightInKG"  step="0.01">
+        
+        <label for="conversionRate">Conversion Rate (1 RMB to BDT):</label>
+        <input type="number" id="conversionRate"  step="0.01">
+        
+        <label for="shippingFeePerKG">Shipping Fee per KG (in BDT):</label>
+        <input type="number" id="shippingFeePerKG"  step="0.01">
+        
+        <button onclick="calculatePrice()">Calculate</button>
+        
+        <p id="finalPrice"></p>
+    </div>
+
+    <script>
+        function calculatePrice() {
+            const priceInRMB = parseFloat(document.getElementById('priceInRMB').value);
+            const serviceCharge = parseFloat(document.getElementById('serviceCharge').value);
+            const weightInKG = parseFloat(document.getElementById('weightInKG').value);
+            const conversionRate = parseFloat(document.getElementById('conversionRate').value);
+            const shippingFeePerKG = parseFloat(document.getElementById('shippingFeePerKG').value);
+            
+            const purchasePriceInRMB = priceInRMB + (priceInRMB * (serviceCharge / 100));
+            const purchasePriceInBDT = purchasePriceInRMB * conversionRate;
+            const shippingFeeInBDT = weightInKG * shippingFeePerKG;
+            const finalPrice = purchasePriceInBDT + shippingFeeInBDT;
+            
+            document.getElementById('finalPrice').textContent = `Final Price: ${finalPrice.toFixed(2)} BDT`;
+        }
+    </script>
+</body>
+</html>
